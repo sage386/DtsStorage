@@ -1,9 +1,8 @@
 DtsStorage Copyright (C) 2017 Alex A. Petroukine, sage386@hotmai.com
 DtsStorage is an in-memory tree-like lightning fast storage container with the features described below.
 
-Sample usage:
-
--------------------------------------
+# Sample Usage
+```sh
 CStorage storage;
 
 [thread 1]
@@ -23,9 +22,9 @@ CStorage storage;
 														// if we it read again, we would read unchanged value with Default isolation mode
 	// tx.commit();										// when tx goes out of scope or commit is manually called, changes applied atomically
 }
--------------------------------------
+```
 
-Features
+# Features
 
 1. Transactions
 
