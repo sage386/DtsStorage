@@ -1,5 +1,6 @@
-DtsStorage Copyright (C) 2017 Alex A. Petroukine, sage386@hotmai.com
-DtsStorage is an in-memory tree-like lightning fast storage container with the features described below.
+# DtsStorage 
+Is an in-memory tree-like lightning fast storage container with the features described below.
+Copyright (C) 2017 Alex A. Petroukine, sage386@hotmail.com
 
 # Sample Usage
 ```sh
@@ -7,20 +8,20 @@ CStorage storage;
 
 [thread 1]
 {
-	CTransaction tx(storage);							// acquires a read-snapshot over current storage, zero time!
-	int32_t value = tx["path"]["value"].getInt32();		// snapshot remains consistent and isolated from other thread modifications
-	auto variant = tx["path"];							// shortcuts to nodes
+	CTransaction tx(storage);                           // acquires a read-snapshot over current storage, zero time!
+	int32_t value = tx["path"]["value"].getInt32();     // snapshot remains consistent and isolated from other thread modifications
+	auto variant = tx["path"];                          // shortcuts to nodes
 	for (auto i: variant) {...}                         // iterates over keys within a non-leaf node
 }
 
 [thread 2]
 {
-	CTransaction tx(storage, CTransaction::Default);	// acquires a read-snapshot as in prior example with no read-changes visibility
-	tx["path"]["subpath"]["leaf"] = "string value";		// request to write/modify data within a storage.
-	if (tx["value"] < 10)								// with Default isolation mode this reads data only from snapshot
-		tx["value"] = 10;								// puts a record into transaction log to change the value
-														// if we it read again, we would read unchanged value with Default isolation mode
-	// tx.commit();										// when tx goes out of scope or commit is manually called, changes applied atomically
+	CTransaction tx(storage, CTransaction::Default);    // acquires a read-snapshot as in prior example with no read-changes visibility
+	tx["path"]["subpath"]["leaf"] = "string value";     // request to write/modify data within a storage.
+	if (tx["value"] < 10)                               // with Default isolation mode this reads data only from snapshot
+		tx["value"] = 10;                               // puts a record into transaction log to change the value
+                                                        // if we it read again, we would read unchanged value with Default isolation mode
+	// tx.commit();                                     // when tx goes out of scope or commit is manually called, changes applied atomically
 }
 ```
 
@@ -85,10 +86,12 @@ The actual changes are not reported though. Change notification handler is passe
 
 An Endpoint layer abstracted from transport is also there. It allows an endpoint to make shares of specific paths of a storage(s),
 thus exposing/publish them for replication. Recursive sharing for subtree structure is also supported. 
-Other endpoints easily can subscribe for those shared resources and effectivelly receive autimatically replicated data into local DstStorage folder.
+Other endpoints easily can subscribe for those shared resources and effectivelly receive autimatically replicated data into its local DstStorage folder.
 
 11. Lightning Fast
 
-Designed for speed and space efficiency.
+Designed for speed but kept also space efficiency in mind.
 
 ...more
+
+
