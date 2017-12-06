@@ -16,7 +16,7 @@ CStorage storage;
 
 [thread 2]
 {
-    CTransaction tx(storage, CTransaction::Default);    // acquires a read-snapshot as in prior example with no read-changes visibility
+    CTransaction tx(storage, CTransaction::Default);    // acquires a read-snapshot as in prior example with no changes visibility
     tx["path"]["subpath"]["leaf"] = "string value";     // request to write/modify data within a storage.
     if (tx["value"] < 10)                               // with Default isolation mode this reads data only from snapshot
         tx["value"] = 10;                               // puts a record into transaction log to change the value
