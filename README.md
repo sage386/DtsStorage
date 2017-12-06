@@ -8,20 +8,20 @@ CStorage storage;
 
 [thread 1]
 {
-	CTransaction tx(storage);                           // acquires a read-snapshot over current storage, zero time!
-	int32_t value = tx["path"]["value"].getInt32();     // snapshot remains consistent and isolated from other thread modifications
-	auto variant = tx["path"];                          // shortcuts to nodes
-	for (auto i: variant) {...}                         // iterates over keys within a non-leaf node
+    CTransaction tx(storage);                           // acquires a read-snapshot over current storage, zero time!
+    int32_t value = tx["path"]["value"].getInt32();     // snapshot remains consistent and isolated from other thread modifications
+    auto variant = tx["path"];                          // shortcuts to nodes
+    for (auto i: variant) {...}                         // iterates over keys within a non-leaf node
 }
 
 [thread 2]
 {
-	CTransaction tx(storage, CTransaction::Default);    // acquires a read-snapshot as in prior example with no read-changes visibility
-	tx["path"]["subpath"]["leaf"] = "string value";     // request to write/modify data within a storage.
-	if (tx["value"] < 10)                               // with Default isolation mode this reads data only from snapshot
-		tx["value"] = 10;                               // puts a record into transaction log to change the value
+    CTransaction tx(storage, CTransaction::Default);    // acquires a read-snapshot as in prior example with no read-changes visibility
+    tx["path"]["subpath"]["leaf"] = "string value";     // request to write/modify data within a storage.
+    if (tx["value"] < 10)                               // with Default isolation mode this reads data only from snapshot
+        tx["value"] = 10;                               // puts a record into transaction log to change the value
                                                         // if we it read again, we would read unchanged value with Default isolation mode
-	// tx.commit();                                     // when tx goes out of scope or commit is manually called, changes applied atomically
+    // tx.commit();                                     // when tx goes out of scope or commit is manually called, changes applied atomically
 }
 ```
 
