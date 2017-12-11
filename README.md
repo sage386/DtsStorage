@@ -88,9 +88,14 @@ An Endpoint layer abstracted from transport is also there. It allows an endpoint
 thus exposing/publish them for replication. Recursive sharing for subtree structure is also supported. 
 Other endpoints easily can subscribe for those shared resources and effectivelly receive autimatically replicated data into its local DstStorage folder.
 
-11. Lightning Fast
+11. Weak-Typed/Strong-Typed access
+
+Strage can be accessed both ways: typeless and strong typed (C++ accessor classes can be defined within the CPP/H file, require preprocessor tool)
+
+12. Lightning Fast
 
 Designed for speed but kept also space efficiency in mind.
+
 
 ...more
 
