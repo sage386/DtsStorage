@@ -99,4 +99,6 @@ Designed for speed but kept also space efficiency in mind.
 
 ...more
 
+(c) sage386(at)hotmail.com
+
 
